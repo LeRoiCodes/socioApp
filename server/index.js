@@ -8,13 +8,14 @@ import helmet from "helmet"
 import morgan from "morgan"
 import path from "path"
 import { fileURLToPath } from "url"
+import {register} from "./controllers/authController.js"
+import authRoutes from "./routes/authRoutes.js"
 
 
 /* Configurations */
 
-
 //need this to when using moduletype in pkg.json
-const filename = fileURLToPath(import.meta.url)
+const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 //enabling env files
 dotenv.config()
@@ -42,3 +43,20 @@ const storage = multer.diskStorage({
 
 //use variable each time uploading a file
 const upload = multer({storage})
+
+//Routes will files
+app.post("/auth/register", upload.single("picture"), register)
+
+//normal routes
+app.use("/auth", authRoutes)
+
+/* Mongoose setup */
+const PORT = process.env.PORT || 50001
+mongoose.connect(process.env.MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+}).then(() => {
+    app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
+}).catch(
+    (error) => console.log(`${error} did not connect`)
+)
