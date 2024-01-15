@@ -11,6 +11,9 @@ import { fileURLToPath } from "url"
 import {register} from "./controllers/authController.js"
 import authRoutes from "./routes/authRoutes.js"
 import userRoutes from "./routes/userRoutes.js"
+import postRoutes from "./routes/postRoutes.js"
+import {createPost} from "./controllers/postController.js"
+import { verifyToken } from "./middlewares/authMiddleware.js"
 
 
 /* Configurations */
@@ -47,10 +50,12 @@ const upload = multer({storage})
 
 //Routes will files
 app.post("/auth/register", upload.single("picture"), register)
+app.post("/post", verifyToken, upload.single("picture"), createPost)
 
 //normal routes
 app.use("/auth", authRoutes)
 app.use("/users", userRoutes)
+app.use("posts", postRoutes)
 
 /* Mongoose setup */
 const PORT = process.env.PORT || 50001
