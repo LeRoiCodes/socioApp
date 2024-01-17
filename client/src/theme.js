@@ -34,7 +34,72 @@ export const colorToken = {
 export const themeSettings = (mode) => {
     return {
         palette: {
-            
+            mode: mode,
+            ...(mode === "dark" ? {
+                //palette values for dark mode
+                primary:{
+                    dark: colorToken.primary[200],
+                    main: colorToken.primary[500],
+                    light: colorToken.primary[800],
+                },
+                neutral: {
+                    dark: colorToken.grey[100],
+                    main: colorToken.grey[200],
+                    meduimMain: colorToken.grey[300],
+                    meduim: colorToken.grey[400],
+                    light: colorToken.grey[700],
+                },
+                background: {
+                    default: colorToken.grey[900],
+                    alt : colorToken.grey[800],
+                }
+            } : {
+                // palette values for light mode
+                primary:{
+                    dark: colorToken.primary[700],
+                    main: colorToken.primary[500],
+                    light: colorToken.primary[50],
+                },
+                neutral: {
+                    dark: colorToken.grey[700],
+                    main: colorToken.grey[500],
+                    meduimMain: colorToken.grey[400],
+                    meduim: colorToken.grey[300],
+                    light: colorToken.grey[50],
+                },
+                background: {
+                    default: colorToken.grey[10],
+                    alt : colorToken.grey[0],
+                }
+            })
+        },
+        typography: {
+            fontFamily: ["Rubik", "sans-serif"].join(","),
+            fontSize: 12,
+            h1:{
+                fontFamily: ["Rubik", "sans-serif"].join(","),
+                fontSize: 40,
+            },
+            h2:{
+                fontFamily: ["Rubik", "sans-serif"].join(","),
+                fontSize: 32,
+            },
+            h3:{
+                fontFamily: ["Rubik", "sans-serif"].join(","),
+                fontSize: 24,
+            },
+            h4:{
+                fontFamily: ["Rubik", "sans-serif"].join(","),
+                fontSize: 20,
+            },
+            h5:{
+                fontFamily: ["Rubik", "sans-serif"].join(","),
+                fontSize: 16,
+            },
+            h6:{
+                fontFamily: ["Rubik", "sans-serif"].join(","),
+                fontSize: 14,
+            }
         }
     }
 }
