@@ -1,11 +1,13 @@
+import { Box } from '@mui/material'
 import React from 'react'
+import Navbar from '../navbar/Navbar'
 
-function home() {
+function Home() {
   return (
-    <div>
-        
-    </div>
+    <Box>
+      <Navbar />
+    </Box>
   )
 }
 
-export default home
+export default Home
