@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box, Typography, useTheme, useMediaQuery } from '@mui/material'
-import LoginForm from './LoginForm'
+import LoginForm from './Form'
 
 function Login() {
 
