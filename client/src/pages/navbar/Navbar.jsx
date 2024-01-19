@@ -23,8 +23,9 @@ function Navbar() {
   const primaryLight = theme.palette.primary.light
   const alt =  theme.palette.background.alt
 
-  // const fullName = `${user.firstName} ${user.lastName}` || "Fake Person"
-  const fullName = "Fake Person"
+  const fullName = `${user.firstName} ${user.lastName}` || "Fake Person"
+  // const fullName = "Fake Person"
+  // console.log(user)
 
 
   return (

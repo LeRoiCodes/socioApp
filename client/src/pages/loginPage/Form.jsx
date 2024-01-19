@@ -1,10 +1,11 @@
 import React, {useState} from 'react'
 import { Box, Button, TextField, useMediaQuery, Typography, useTheme } from '@mui/material'
-import { EditOutlinedIcon } from '@mui/icons-material/EditOutlined'
+// import { EditOutlinedIcon } from '@mui/icons-material/EditOutlined'
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import { Formik } from 'formik'
 import * as yup from "yup"
 import { useNavigate } from 'react-router-dom'
-import { UseDispatch, useDispatch } from 'react-redux'
+import {  useDispatch } from 'react-redux'
 import { setLogin } from '../../redux/redux'
 import Dropzone from 'react-dropzone'
 import FlexBetween from '../../components/FlexBetween'
@@ -13,7 +14,7 @@ import FlexBetween from '../../components/FlexBetween'
 const registerSchema = yup.object().shape({
   firstName: yup.string().required("required"),
   lastName: yup.string().required("required"),
-  email: yup.email("invalid email").required("required"),
+  email: yup.string().email("invalid email").required("required"),
   password: yup.string().required("required"),
   location: yup.string().required("required"),
   occupation: yup.string().required("required"),
@@ -21,7 +22,7 @@ const registerSchema = yup.object().shape({
 })
 
 const loginSchema = yup.object().shape({
-  email: yup.email("invalid email").required("required"),
+  email: yup.string().email("invalid email").required("required"),
   password: yup.string().required("required"),
 })
 
@@ -53,10 +54,12 @@ function Form() {
   const register = async (values, onSubmitProps) => {
     //formData allowsyou to send data with a file in it
     const formData = new FormData()
+    console.log(values)
     for (let value in values) {
       formData.append(value, values[value])
     }
     formData.append("imageUrl", values.picture.name)
+    // console.log(formData)
     const savedUserResponse = await fetch(
     "http://localhost:5000/auth/register", {
       method: "POST",
@@ -70,10 +73,11 @@ function Form() {
     setPage("login")
   }
   }
+  
 
   const login = async (values, onSubmitProps) => {
     const loggedInResponse= await fetch(
-    "http://localhost:5000/auth/register", {
+    "http://localhost:5000/auth/login", {
       method: "POST",
       headers: {"content-Type" : "application/json"},
       body: JSON.stringify(values),
@@ -144,7 +148,7 @@ function Form() {
                 label="Location" 
                 onBlur={handleBLur} 
                 onChange={handleChange} 
-                value={values.firstName} 
+                value={values.location} 
                 name="location" 
                 error={Boolean(touched.location) && Boolean(errors.location)} 
                 helperText={touched.location && errors.location}
@@ -165,7 +169,7 @@ function Form() {
                 }}
                 />
                 <Box gridColumn={"span 4"} border={`1px solid ${palette.neutral.medium}`} borderRadius={"5px"} p={"1rem"}>
-                  <Dropzone accept={".jpg, .jpeg, png"} multiple={false} onDrop={(accept) => setFieldValue("picture", accept[0]) }>
+                  <Dropzone acceptedFiles={".jpg, .jpeg, png"} multiple={false} onDrop={(acceptedFiles) => setFieldValue("picture", acceptedFiles[0]) }>
                     {({ getRootProps, getInputProps}) => (
                       <Box {...getRootProps()} border={`2px dashed ${palette.primary.main}`} p={"1rem"} sx={{ "&:hover": {cursor: "pointer"}}} >
                         <input {...getInputProps()} />
