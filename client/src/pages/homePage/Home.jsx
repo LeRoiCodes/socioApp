@@ -3,6 +3,7 @@ import React from 'react'
 import Navbar from '../navbar/Navbar'
 import { useSelector } from 'react-redux'
 import UserWidget from '../widgets/UserWidget'
+import MyPostWidget from '../widgets/MyPostWidget'
 
 function Home() {
   const isNotMobile = useMediaQuery("(min-width:1000px)")
@@ -15,10 +16,11 @@ function Home() {
           <UserWidget userId={_id} imageUrl={imageUrl}/>
         </Box>
         <Box flexBasis={isNotMobile ? "42%" : undefined} mt={isNotMobile ? undefined : "2rem"}>
+          <MyPostWidget imageUrl={imageUrl} />
+        </Box>
           {isNotMobile && (
             <Box flexBasis={"26%"}></Box>
           ) }
-        </Box>
       </Box>
     </Box>
   )
